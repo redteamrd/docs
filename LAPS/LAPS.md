@@ -12,7 +12,7 @@ Esta ofrece:
 
 ### Arquitectura:
 
-<Image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/1.png)
 
 ### Funcionamiento:
 La solución realiza las siguientes tareas:
