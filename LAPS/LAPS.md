@@ -60,31 +60,31 @@ https://www.microsoft.com/en-us/download/details.aspx?id=46899
 
 Doble Click en LAPS.x64.msi
 
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/2.png)
 
 
 Click en **Next** 
 
 En esta instalación habilitaremos todas las opciones, click en **next**
 
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/3.png)
 
 Click en **install**
 
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/4.png)
 
 Click **Finish**
 
 Una vez terminada la instalación podemos verificar en **Control Panel > Programs and Features**
 
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/5.png)
 
 ## Instalación vía Política de Dominio:
 Lo primero que debemos es crear una carpeta para que todos las máquinas y servidores del dominio puedan descargar el instalador de LAPS, para ellos iremos a **“C:\Windows\SYSVOL\sysvol\laps.local\scripts\”**
 
 Aquí crearemos una carpeta, la cual llamaremos **“DeployLAPS”** y copiaremos **“LAPS.x64.msi”** en ella.
 
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/6.png)
 
 Ahora nuestro siguiente paso es crear una política con la cual haremos el despliegue a todos las máquinas y servidores del dominio. 
 
@@ -92,21 +92,21 @@ Para esto iremos a nuestro **“Server Manager > Group Policy Management”** cr
 
 Ej:
 
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/7.png)
 
 Click derecho en **"Software Installation"** Click New > package…
 
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/8.png)
 
 En este punto buscaremos la ruta donde colocamos el paquete de instalación, pero vía red.
 
 Ej: **“\\garen01\NETLOGON\DeployLAPS\LAPS.x64.msi"**
 
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/9.png)
 
 Seleccionamos el paquete, click en open.
 
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p10.png)
 
 ## Configuración de LAPS
 
@@ -118,11 +118,11 @@ Para definir quienes tendrán acceso a ver las contraseñas de los administrador
 
 Momentáneamente agregaremos el usuario con el cual trabajaremos al Grupo de Dominio llamado **"Schema Admins". En Active Directory Users and Computers > Find Users, Contacts, and Groups > Find Now**
 
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p11.png)
 
 Doble click en el grupo **“Schema Admins”** y aquí agregamos a nuestro usuario, en nuestro caso fue **“garen”**
 
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p12.png)
 
 Una vez agregado el usuario al grupo de dominio “Schema Admins”, procederemos actualizaremos el schema desde dominio via PowerShell.
 
@@ -131,16 +131,16 @@ Abrimos PowerShell con privilegio de administrador y ejecutamos
 ```
 PS> Import-Module AdmPwd.ps
 ```
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p13.png)
 
 ```
 PS> Update-AdmPwdAdSchema
 ```
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p14.png)
 
 Al finalizar debemos remover el usuario del Grupo **"Schema Admin"**, para continuar.
 
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p15.png)
 
 ### Tipos de acceso
 **Crear grupo(s) de dominio.**
@@ -153,7 +153,7 @@ En **Active Directory Users and Computers** en nuestro laboratorio crearemos dif
 
 Estos grupos son lo que tendrán privilegios para ver la contraseña de administrador local:
 
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p16.png)
 
 ## Configuración de permisos.
 Para configurar el permiso para grupo(s) o usuario de dominio debemos realizar los siguientes pasos en el Controlador de Dominio. 
@@ -166,14 +166,14 @@ Abrimos PowerShell con privilegio de administrador y ejecutamos
 ```
 PS> Set-AdmPwdComputerSelfPermission -Identity Computadora
 ```
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p17.png)
 Nota: "Computadora" es la OU raíz en mi controlador de dominio desde el cual tengo todas mi computadora y servidores
  
 - Verificación de permisos Generales.
 ```
 PS> Find-AdmPwdExtendedRights -Identity Computadora | Format-Table
 ```
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p18.png)
 
 Notaremos que solo {NT AUTHORITY\SYSTEM, LAPS\Domain Admins} tienen privilegios.
 
@@ -181,33 +181,33 @@ Notaremos que solo {NT AUTHORITY\SYSTEM, LAPS\Domain Admins} tienen privilegios.
 ```
 PS> Set-AdmPwdReadPasswordPermission -Identity "PC" -AllowedPrincipals "LAPS_Soporte"
 ```
-<image>
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p19.png)
 
 ```
 PS> Set-AdmPwdReadPasswordPermission -Identity "PC" -AllowedPrincipals "LAPS_PCAdmin"
 ```
-image
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p20.png)
 
 ```
 PS> Set-AdmPwdReadPasswordPermission -Identity "PC_ADMINISTRADORES" -AllowedPrincipals "LAPS_PCAdmin"
 ```
-image
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p21.png)
 
 ```
 PS> Set-AdmPwdReadPasswordPermission -Identity "Servidores" -AllowedPrincipals "LAPS_SERVIDORES"
 ```
-image
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p22.png)
 
 ```
 PS> Set-AdmPwdReadPasswordPermission -Identity "Servidores_Dominio" -AllowedPrincipals "LAPS_DCAdmin"
 ```
-image
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p23.png)
 
 Verificación de acceso por Grupos.
 ```
 PS> Find-AdmPwdExtendedRights -Identity Computadora | Format-Table
 ```
-image
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p24.png)
 
 Con esto volvemos a verificar que permisos tenemos en cada OU la imagen mas arriba muestra ahora cambios en las OU que hemos agregado como en **PC, SERVIDORES, PC_ADMINISTRADORES, SERVIDORES_DOMINIO.**
 
@@ -215,7 +215,7 @@ Con esto volvemos a verificar que permisos tenemos en cada OU la imagen mas arri
 ```
 PS> Set-AdmPwdReadPasswordPermission -Identity "PC" -AllowedPrincipals "leona"
 ```
-image
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p25.png)
 
 > Nota: recomendamos para implementación a gran escala hacer uso de {Grupo(s) y OU} que dar acceso por usuario puntual.
 
@@ -226,23 +226,23 @@ Es necesario definir los parámetros para LAPS tales como **Antigüedad, Complej
 ### Configuración de Política para Computadora
 Esta política la llamaremos **"GPO_Computadora_ConfigLAPS"** y editamos en **"Computer Configuration > Policies > Adminitrative Tempalte > LAPS"**
 
-image
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p26.png)
 
 Doble click   "Enable local admin password management" **– Enable**
 
-image
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p27.png)
 
 Doble click **"Password Settings"**
 1.	Fourteen (14) characters long,
 2.	Password Age of 12 days
 
-image
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p28.png)
 
 ### Configuración de Política para Servidores
 
 Esta política la llamaremos **"GPO_Servidores_ConfigLAPS"** y editamos en **"Computer Configuration > Policies > Adminitrative Tempalte > LAPS"**
 
-image
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p29.png)
 
 Doble click   "Enable local admin password management" **– Enable**
 
@@ -250,7 +250,7 @@ Doble click **"Password Settings"**
 1.	Fourteen (20) characters long,
 2.	Password Age of 3 days.
 
-image
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p30.png)
 
 > Nota: Si por alguna razón al tratar de crear la política de parámetro no ve LAPS deberá copia ADML y ADMX en SYSVOL desde
 
