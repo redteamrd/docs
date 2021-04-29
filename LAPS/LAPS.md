@@ -2,6 +2,26 @@
 
 Este documento ofrece una breve descripción general y un resume de los pasos fundamentales para implementar **L**ocal **A**dministrator **P**assword **S**olution o sus siglas en ingles LAPS.
 
+  * [Qué es LAPS?](#qu--es-laps)
+    + [Arquitectura:](#arquitectura)
+    + [Funcionamiento:](#funcionamiento)
+    + [Características:](#caracter-sticas)
+  * [Instalación](#instalaci-n)
+    + [Método de Instalación:](#m-todo-de-instalaci-n)
+  * [Instalación vía Política de Dominio:](#instalaci-n-v-a-pol-tica-de-dominio)
+  * [Configuración de LAPS](#configuraci-n-de-laps)
+    + [Actualizar el esquema del dominio.](#actualizar-el-esquema-del-dominio)
+    + [Tipos de acceso](#tipos-de-acceso)
+  * [Configuración de permisos.](#configuraci-n-de-permisos)
+    + [Acceso por grupo(s) de dominio.](#acceso-por-grupo-s--de-dominio)
+  * [Política de Dominio para Configuración LAPS.](#pol-tica-de-dominio-para-configuraci-n-laps)
+    + [Configuración de Política para Computadora](#configuraci-n-de-pol-tica-para-computadora)
+    + [Configuración de Política para Servidores](#configuraci-n-de-pol-tica-para-servidores)
+  * [Comprobación de Configuración.](#comprobaci-n-de-configuraci-n)
+  * [Acrónimos](#acr-nimos)
+
+----------------------------------------
+
 ## Qué es LAPS?
 
 Es una solución de manejador de contraseñas automática de cuentas locales en máquinas unidos al dominio.
@@ -283,4 +303,6 @@ Si todo lo indicado hasta este punto, se ha realizado tal cual, podremos verific
 - **PASS-THE-HASH:** Es una técnica donde se utiliza el hash del password del usuario para autenticarse en un equipo remoto, sin la necesidad de la contraseña.
 - **KERBEROS:** Protocolo de autenticación de redes de ordenador creado por el MIT.
 
-
+## Créditos
+- Preparado por: Lic. Jose Felix (@r0ok1e)
+- Última actualización: 11 de abril de 2021
