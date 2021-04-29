@@ -75,9 +75,11 @@ Click en **install**
 
 Click **Finish**
 
-Una vez terminada la instalación podemos verificar en **Control Panel > Programs and Features**
+
 
 ![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/5.png)
+
+Una vez terminada la instalación podemos verificar en **Control Panel > Programs and Features**
 
 ## Instalación vía Política de Dominio:
 Lo primero que debemos es crear una carpeta para que todos las máquinas y servidores del dominio puedan descargar el instalador de LAPS, para ellos iremos a **“C:\Windows\SYSVOL\sysvol\laps.local\scripts\”**
