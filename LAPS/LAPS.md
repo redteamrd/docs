@@ -86,8 +86,6 @@ Lo primero que debemos es crear una carpeta para que todos las máquinas y servi
 
 Aquí crearemos una carpeta, la cual llamaremos **“DeployLAPS”** y copiaremos **“LAPS.x64.msi”** en ella.
 
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/6.png)
-
 Ahora nuestro siguiente paso es crear una política con la cual haremos el despliegue a todos las máquinas y servidores del dominio. 
 
 Para esto iremos a nuestro **“Server Manager > Group Policy Management”** creamos una política con el nombre **"GPO_Deploy_LAPS"** editamos en **"Computer Configuration > Policies > Software Settings"**
