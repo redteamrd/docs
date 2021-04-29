@@ -86,27 +86,29 @@ Lo primero que debemos es crear una carpeta para que todos las máquinas y servi
 
 Aquí crearemos una carpeta, la cual llamaremos **“DeployLAPS”** y copiaremos **“LAPS.x64.msi”** en ella.
 
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p7.png)
+
 Ahora nuestro siguiente paso es crear una política con la cual haremos el despliegue a todos las máquinas y servidores del dominio. 
 
 Para esto iremos a nuestro **“Server Manager > Group Policy Management”** creamos una política con el nombre **"GPO_Deploy_LAPS"** editamos en **"Computer Configuration > Policies > Software Settings"**
 
 Ej:
 
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/7.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p8.png)
 
 Click derecho en **"Software Installation"** Click New > package…
 
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/8.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p9.png)
 
 En este punto buscaremos la ruta donde colocamos el paquete de instalación, pero vía red.
 
 Ej: **“\\garen01\NETLOGON\DeployLAPS\LAPS.x64.msi"**
 
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/9.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p10.png)
 
 Seleccionamos el paquete, click en open.
 
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p10.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p11.png)
 
 ## Configuración de LAPS
 
@@ -118,11 +120,11 @@ Para definir quienes tendrán acceso a ver las contraseñas de los administrador
 
 Momentáneamente agregaremos el usuario con el cual trabajaremos al Grupo de Dominio llamado **"Schema Admins". En Active Directory Users and Computers > Find Users, Contacts, and Groups > Find Now**
 
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p11.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p12.png)
 
 Doble click en el grupo **“Schema Admins”** y aquí agregamos a nuestro usuario, en nuestro caso fue **“garen”**
 
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p12.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p13.png)
 
 Una vez agregado el usuario al grupo de dominio “Schema Admins”, procederemos actualizaremos el schema desde dominio via PowerShell.
 
@@ -131,16 +133,16 @@ Abrimos PowerShell con privilegio de administrador y ejecutamos
 ```
 PS> Import-Module AdmPwd.ps
 ```
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p13.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p14.png)
 
 ```
 PS> Update-AdmPwdAdSchema
 ```
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p14.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p15.png)
 
 Al finalizar debemos remover el usuario del Grupo **"Schema Admin"**, para continuar.
 
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p15.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p16.png)
 
 ### Tipos de acceso
 **Crear grupo(s) de dominio.**
@@ -153,7 +155,7 @@ En **Active Directory Users and Computers** en nuestro laboratorio crearemos dif
 
 Estos grupos son lo que tendrán privilegios para ver la contraseña de administrador local:
 
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p16.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p17.png)
 
 ## Configuración de permisos.
 Para configurar el permiso para grupo(s) o usuario de dominio debemos realizar los siguientes pasos en el Controlador de Dominio. 
@@ -166,14 +168,14 @@ Abrimos PowerShell con privilegio de administrador y ejecutamos
 ```
 PS> Set-AdmPwdComputerSelfPermission -Identity Computadora
 ```
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p17.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p18.png)
 Nota: "Computadora" es la OU raíz en mi controlador de dominio desde el cual tengo todas mi computadora y servidores
  
 - Verificación de permisos Generales.
 ```
 PS> Find-AdmPwdExtendedRights -Identity Computadora | Format-Table
 ```
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p18.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p19.png)
 
 Notaremos que solo {NT AUTHORITY\SYSTEM, LAPS\Domain Admins} tienen privilegios.
 
