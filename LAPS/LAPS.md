@@ -183,33 +183,33 @@ Notaremos que solo {NT AUTHORITY\SYSTEM, LAPS\Domain Admins} tienen privilegios.
 ```
 PS> Set-AdmPwdReadPasswordPermission -Identity "PC" -AllowedPrincipals "LAPS_Soporte"
 ```
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p19.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p20.png)
 
 ```
 PS> Set-AdmPwdReadPasswordPermission -Identity "PC" -AllowedPrincipals "LAPS_PCAdmin"
 ```
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p20.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p21.png)
 
 ```
 PS> Set-AdmPwdReadPasswordPermission -Identity "PC_ADMINISTRADORES" -AllowedPrincipals "LAPS_PCAdmin"
 ```
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p21.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p22.png)
 
 ```
 PS> Set-AdmPwdReadPasswordPermission -Identity "Servidores" -AllowedPrincipals "LAPS_SERVIDORES"
 ```
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p22.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p23.png)
 
 ```
 PS> Set-AdmPwdReadPasswordPermission -Identity "Servidores_Dominio" -AllowedPrincipals "LAPS_DCAdmin"
 ```
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p23.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p24.png)
 
 Verificación de acceso por Grupos.
 ```
 PS> Find-AdmPwdExtendedRights -Identity Computadora | Format-Table
 ```
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p24.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p25.png)
 
 Con esto volvemos a verificar que permisos tenemos en cada OU la imagen mas arriba muestra ahora cambios en las OU que hemos agregado como en **PC, SERVIDORES, PC_ADMINISTRADORES, SERVIDORES_DOMINIO.**
 
@@ -217,7 +217,7 @@ Con esto volvemos a verificar que permisos tenemos en cada OU la imagen mas arri
 ```
 PS> Set-AdmPwdReadPasswordPermission -Identity "PC" -AllowedPrincipals "leona"
 ```
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p25.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p26.png)
 
 > Nota: recomendamos para implementación a gran escala hacer uso de {Grupo(s) y OU} que dar acceso por usuario puntual.
 
@@ -228,31 +228,34 @@ Es necesario definir los parámetros para LAPS tales como **Antigüedad, Complej
 ### Configuración de Política para Computadora
 Esta política la llamaremos **"GPO_Computadora_ConfigLAPS"** y editamos en **"Computer Configuration > Policies > Adminitrative Tempalte > LAPS"**
 
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p26.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p27.png)
 
 Doble click   "Enable local admin password management" **– Enable**
 
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p27.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p28.png)
 
 Doble click **"Password Settings"**
 1.	Fourteen (14) characters long,
 2.	Password Age of 12 days
 
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p28.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p29.png)
 
 ### Configuración de Política para Servidores
 
 Esta política la llamaremos **"GPO_Servidores_ConfigLAPS"** y editamos en **"Computer Configuration > Policies > Adminitrative Tempalte > LAPS"**
 
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p29.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p30.png)
 
 Doble click   "Enable local admin password management" **– Enable**
+
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p31.png)
+
 
 Doble click **"Password Settings"**
 1.	Fourteen (20) characters long,
 2.	Password Age of 3 days.
 
-![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p30.png)
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p32.png)
 
 > Nota: Si por alguna razón al tratar de crear la política de parámetro no ve LAPS deberá copia ADML y ADMX en SYSVOL desde
 
@@ -269,6 +272,7 @@ Si todo lo indicado hasta este punto, se ha realizado tal cual, podremos verific
 ```  
  PS> Get-AdmPwdPassword -ComputerName "WRK01"
 ```
+![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p33.png)
 ## Acrónimos
 
 - **ACL:** Access Control List
