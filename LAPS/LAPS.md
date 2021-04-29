@@ -2,10 +2,10 @@
 
 Esta guía técnica ofrece los pasos fundamentales para implementar **L**ocal **A**dministrator **P**assword **S**olution o sus siglas en ingles LAPS.
 
-  * [Qué es LAPS?](#qu--es-laps)
+  * [Qué es LAPS?](#qu%C3%A9-es-laps)
     + [Arquitectura](#arquitectura)
     + [Funcionamiento](#funcionamiento)
-    + [Características](#caracter-sticas)
+    + [Características](#caracter%C3%ADsticas)
   * [Instalación](#instalaci-n)
     + [Método de Instalación](#m-todo-de-instalaci-n)
   * [Instalación vía Política de Dominio](#instalaci-n-v-a-pol-tica-de-dominio)
