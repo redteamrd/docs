@@ -151,12 +151,12 @@ Una vez agregado el usuario al grupo de dominio “Schema Admins”, procederemo
 
 Abrimos PowerShell con privilegio de administrador y ejecutamos
 
-```
+```powershell
 PS> Import-Module AdmPwd.ps
 ```
 ![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p14.png)
 
-```
+```powershell
 PS> Update-AdmPwdAdSchema
 ```
 ![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p15.png)
@@ -186,14 +186,14 @@ Para configurar el permiso para grupo(s) o usuario de dominio debemos realizar l
 Ahora debemos establecer el permiso para que los usuarios puedan leer la contraseña de administrador local, deberemos agregar los atributos "ms-Mcs-AdmPwd" y "ms-Mcs-AdmPwdExpirationTime" con el siguiente comando.
 
 Abrimos PowerShell con privilegio de administrador y ejecutamos
-```
+```powershell
 PS> Set-AdmPwdComputerSelfPermission -Identity Computadora
 ```
 ![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p18.png)
 Nota: "Computadora" es la OU raíz en mi controlador de dominio desde el cual tengo todas mi computadora y servidores
  
 - Verificación de permisos Generales.
-```
+```powershell
 PS> Find-AdmPwdExtendedRights -Identity Computadora | Format-Table
 ```
 ![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p19.png)
@@ -201,33 +201,33 @@ PS> Find-AdmPwdExtendedRights -Identity Computadora | Format-Table
 Notaremos que solo {NT AUTHORITY\SYSTEM, LAPS\Domain Admins} tienen privilegios.
 
 ### Acceso por grupo(s) de dominio.
-```
+```powershell
 PS> Set-AdmPwdReadPasswordPermission -Identity "PC" -AllowedPrincipals "LAPS_Soporte"
 ```
 ![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p20.png)
 
-```
+```powershell
 PS> Set-AdmPwdReadPasswordPermission -Identity "PC" -AllowedPrincipals "LAPS_PCAdmin"
 ```
 ![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p21.png)
 
-```
+```powershell
 PS> Set-AdmPwdReadPasswordPermission -Identity "PC_ADMINISTRADORES" -AllowedPrincipals "LAPS_PCAdmin"
 ```
 ![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p22.png)
 
-```
+```powershell
 PS> Set-AdmPwdReadPasswordPermission -Identity "Servidores" -AllowedPrincipals "LAPS_SERVIDORES"
 ```
 ![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p23.png)
 
-```
+```powershell
 PS> Set-AdmPwdReadPasswordPermission -Identity "Servidores_Dominio" -AllowedPrincipals "LAPS_DCAdmin"
 ```
 ![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p24.png)
 
 Verificación de acceso por Grupos.
-```
+```powershell
 PS> Find-AdmPwdExtendedRights -Identity Computadora | Format-Table
 ```
 ![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p25.png)
@@ -235,7 +235,7 @@ PS> Find-AdmPwdExtendedRights -Identity Computadora | Format-Table
 Con esto volvemos a verificar que permisos tenemos en cada OU la imagen mas arriba muestra ahora cambios en las OU que hemos agregado como en **PC, SERVIDORES, PC_ADMINISTRADORES, SERVIDORES_DOMINIO.**
 
 **Acceso por usuario de dominio**
-```
+```powershell
 PS> Set-AdmPwdReadPasswordPermission -Identity "PC" -AllowedPrincipals "leona"
 ```
 ![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p26.png)
@@ -290,7 +290,7 @@ en C:\Windows\SYSVOL\laps.local\Policies\PolicyDefinitions\
 
 Si todo lo indicado hasta este punto, se ha realizado tal cual, podremos verificar la contraseña del administrador local desde cualquier maquina(s) o servidor(s) con el siguiente comando desde powershell.
 
-```  
+```powershell  
  PS> Get-AdmPwdPassword -ComputerName "WRK01"
 ```
 ![image](https://github.com/redteamrd/docs/blob/main/LAPS/images/p33.png)
@@ -305,5 +305,5 @@ Si todo lo indicado hasta este punto, se ha realizado tal cual, podremos verific
 - **KERBEROS:** Protocolo de autenticación de redes de ordenador creado por el MIT.
 
 ## Créditos
-- Preparado por: Lic. Jose Felix (@r0ok1e)
+- Preparado por: Lic. Jose Felix (J0s3F3lix)
 - Última actualización: 11 de abril de 2021
